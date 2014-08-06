@@ -1,4 +1,8 @@
 class PlacesController < ApplicationController
+  http_basic_authenticate_with name: "delta", 
+    password: "secret", 
+    except: [:index, :show]
+
   def index
     @places = Place.all
 
