@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:email, :password))
+    @user = User.new(params.require(:user).permit(:email, :password, :password_confirmation))
 
     respond_to do |format|
       if @user.save
