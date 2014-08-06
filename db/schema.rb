@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806070039) do
+ActiveRecord::Schema.define(version: 20140806080222) do
 
   create_table "places", force: true do |t|
     t.string   "name"
-    t.float    "latitude",   limit: 255
-    t.float    "longitude",  limit: 255
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20140806070039) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "auth_token"
   end
 
 end
