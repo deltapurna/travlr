@@ -41,3 +41,4 @@ gem 'foundation-rails'
 
 gem 'omniauth-twitter'
 gem 'pry-rails'
+gem 'omniauth-identity'
