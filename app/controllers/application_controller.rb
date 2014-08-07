@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to new_session_path, 
         alert: "Unauthorized Access" unless current_user }
-      format.json { render json: "Unauthorized Access" unless current_user }
+      format.json { render json: "Unauthorized Access", status: 401 unless current_user }
     end
   end
 end

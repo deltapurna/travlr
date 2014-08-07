@@ -12,4 +12,12 @@ class User < ActiveRecord::Base
       break token unless self.class.exists?(auth_token: token)
     end
   end
+
+  def as_json(options={})
+    {
+      email: self.email,
+      token: self.auth_token,
+      status: "married"
+    }
+  end
 end

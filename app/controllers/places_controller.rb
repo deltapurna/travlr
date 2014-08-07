@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @places }
+      format.json { render json: @places, status: :ok }
     end
   end
   
@@ -29,7 +29,7 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.save
         format.html { redirect_to root_path, notice: "Place successfully created!" }
-        format.json { render json: @place }
+        format.json { render nothing: true, status: 201 }
       else
         format.html { render :new }
         format.json { render json: @place.errors }
