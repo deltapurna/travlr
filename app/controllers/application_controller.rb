@@ -5,12 +5,19 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user = User.
-      find(session[:user_id]) if session[:user_id]
+    @current_user = if params[:token]
+      User.find_by(auth_token: params[:token])
+    else
+      User.
+        find(session[:user_id]) if session[:user_id]
+    end
   end
 
   def authorize
-    redirect_to new_session_path, 
-      alert: "Unauthorized Access" unless current_user
+    respond_to do |format|
+      format.html { redirect_to new_session_path, 
+        alert: "Unauthorized Access" unless current_user }
+      format.json { render json: "Unauthorized Access" unless current_user }
+    end
   end
 end
