@@ -6,11 +6,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user = if params[:token]
-      User.find_by(auth_token: params[:token])
-    else
-      User.
-        find(session[:user_id]) if session[:user_id]
-    end
+                      User.find_by(auth_token: params[:token])
+                    elsif token = Doorkeeper.authenticate(request)
+                      User.find(token.resource_owner_id) if token.accessible?
+                    else
+                      User.
+                        find(session[:user_id]) if session[:user_id]
+                    end
   end
 
   def authorize
