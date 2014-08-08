@@ -5,8 +5,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user = if params[:token]
-                      User.find_by(auth_token: params[:token])
+    @current_user = if authenticate_with_http_token { |t| t }
+                      User.find_by(auth_token: authenticate_with_http_token {|t| t})
+                    elsif user = authenticate_with_http_basic {|u,p| User.find_by(email: u)}
+                      user.authenticate(authenticate_with_http_basic {|u,p| p })
                     elsif token = Doorkeeper.authenticate(request)
                       User.find(token.resource_owner_id) if token.accessible?
                     else
